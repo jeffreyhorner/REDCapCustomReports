@@ -1,0 +1,13 @@
+"Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max",Identifier?,"Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name"
+id,report,,text,ID,,,,,,y,,,,,
+project_name,report,,sql,Project,"select project_name from redcap_projects",,,,,,,y,,,
+title,report,,text,Title,,,,,,,,y,,,
+description,report,,text,Description,,,,,,,,,,,
+active,report,,radio,Active,"1, Yes | 2, No",,,,,,,y,,,
+hidden,report,,radio,Hidden,"1, Yes | 2, No",,,,,,,y,,,
+report_type,report,,dropdown,"Report Type","1, Generated through rapache | 2, URL",,,,,,,y,,,
+url,report,,text,URL,,,,,,,"[report_type] = 2",,,,
+edoc_file_1,report,,file,"R Source File 1",,,,,,,"[report_type] = 1",,,,
+edoc_file_2,report,,file,"R Source File 2",,,,,,,"[report_type] = 1",,,,
+edoc_file_3,report,,file,"R Source File 3",,,,,,,,,,,
+edoc_file_4,report,,file,"R Source File 4",,,,,,,,,,,
