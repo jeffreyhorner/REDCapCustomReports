@@ -48,7 +48,7 @@ The first step in configuring the plugin is creating a REDCap "Custom Applicatio
 
 2. Link URL / Destination - very important to get this right. You will want to enter the full URL to the path of the "project_reports_developer.php" file located in the ProjectReports folder. For example if your REDCap software is installed on http://example.com/redcap, then  your Link URL will be 
 
-http://example.com/redcap/plugins/ProjectReports/project_reports_developer.php
+  http://example.com/redcap/plugins/ProjectReports/project_reports_developer.php
 
 3. Link Type - set this to "Simple Link"
 
