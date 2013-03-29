@@ -36,3 +36,52 @@ Installation
 
 9. Restart your server and you should be set.
 
+Configuration
+=============
+
+Create Custom Application Link
+------------------------------
+
+The first step in configuring the plugin is creating a REDCap "Custom Application link". Do this by navigating to the "Control Center" and clicking on "Custom Application Links" under the "System Configuration" section. You will want add a link by filling out each field with the correct details:
+
+1. Link Label - typically this has been "Project Reports Dev" where dev stands for developer, but you may enter anything you like here.
+
+2. Link URL / Destination - very important to get this right. You will want to enter the full URL to the path of the "project_reports_developer.php" file located in the ProjectReports folder. For example if your REDCap software is installed on http://example.com/redcap, then  your Link URL will be 
+
+http://example.com/redcap/plugins/ProjectReports/project_reports_developer.php
+
+3. Link Type - set this to "Simple Link"
+
+4. User Access - choose the REDCap users who need access, those that will be developing reports.
+
+5. Opens new window - leave unchecked
+
+6. Append record info to URL - leave unchecked
+
+7. Append project ID to URL - be sure to check this!
+
+
+Create Project Link
+-------------------
+
+Now, you will want to follow these instructions to add a Project Bookmark  to your particular project. Note that you'll need to execute these steps for each project.
+
+1. Click on the "Project Setup" tab on your project.
+
+2. Under the "Setup project bookmark" section, click on "Add or edit bookmarks"
+
+3. Add a new bookmark by entering the details for each field like so:
+
+ - Link Label - typically "Project Records" but anything will do here.
+
+ - Link URL / Destination - this will be the url of your REDCap site that points to the project_reports.php page. Following the example from above the URL should be:
+
+   http://example.com/redcap/plugins/ProjectReports/project_reports.php
+
+ - User Access - choose the users you would like to see the reports.
+
+ - Opens new window - leave unchecked
+
+ - Append record info to URL - leave unchecked
+
+ - Append project ID to URL - be sure to check this!
