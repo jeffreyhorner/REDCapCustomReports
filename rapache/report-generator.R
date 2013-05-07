@@ -1,4 +1,3 @@
-
 # Copyright (c) 2013 Tennessee Initiative for Perinatal Quality Care
 # (TIPQC) All rights reserved.
 # 
@@ -58,8 +57,7 @@ prepareVarDB <- function(m,d){
 				# This version tolerates commas within the label
 				w <- unlist(lapply(strsplit(w,',',perl=TRUE),function(x)c(x[1],paste(x[2:length(x)],collapse=', '))))
 				# Create factor
-				d <- factor(as.numeric(d),levels=as.numeric(w[seq(1,length(w),2)]),
-						labels=w[seq(2,length(w),2)])
+				d <- factor(d,levels=w[seq(1,length(w),2)],labels=w[seq(2,length(w),2)])
 			} else if (length(w) == length(grep('^[0-9]+$',w,perl=TRUE))) {
 				# Create numeric
 				d <- as.numeric(d)
