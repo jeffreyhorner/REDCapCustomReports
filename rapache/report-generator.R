@@ -29,6 +29,60 @@ CUSTOM_REPORT_ID <- gsub("[ ;']",'',unlist(strsplit(l[grep('$CUSTOM_REPORT_ID',l
 DBDRV <- MySQL()
 rm(l)
 
+# helper function for listing a directory
+# see https://gist.github.com/viking/7455008
+safedir <- function(path = '.', pattern = NULL, all.files = FALSE,
+                     full.names = FALSE, recursive = FALSE,
+                     ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE,
+                     follow.symlinks = FALSE) {
+
+  if (!recursive || follow.symlinks) {
+    dir(path = path, pattern = pattern, all.files = all.files,
+        full.names = full.names, recursive = recursive,
+        ignore.case = ignore.case, include.dirs = include.dirs,
+        no.. = no..)
+  }
+  else {
+    files <- dir(path = path, pattern = pattern, all.files = all.files,
+                 full.names = full.names, recursive = FALSE,
+                 ignore.case = ignore.case, include.dirs = TRUE,
+                 no.. = no..)
+
+    # NOTE: files.abs doesn't contain absolute paths if original
+    # path is relative
+    files.abs <- if (full.names) files else file.path(path, files)
+
+    symlinks <- Sys.readlink(files.abs)
+    nonsymlinks.i <- which(nchar(symlinks) == 0)
+    files <- files[nonsymlinks.i]
+    if (!full.names) {
+      files.abs <- files.abs[nonsymlinks.i]
+    }
+    rm(symlinks, nonsymlinks.i)
+
+    info <- file.info(files.abs)
+    dirs.i <- which(info$isdir)
+    rm(info)
+
+    dirs <- files[dirs.i]
+    dirs.abs <- if (full.names) dirs else files.abs[dirs.i]
+    if (!include.dirs && length(dirs.i) > 0) {
+      files <- files[-dirs.i]
+    }
+    rm(dirs.i)
+
+    if (length(dirs) > 0) {
+      for (i in 1:length(dirs)) {
+        dfiles <- safedir(dirs.abs[i], pattern, all.files, full.names,
+                           recursive, ignore.case, include.dirs,
+                           no.., follow.symlinks)
+        files <- c(files, if (full.names) dfiles else file.path(dirs[i], dfiles))
+      }
+    }
+    files
+  }
+}
+
 newDevArea <- function(devId=NULL){
 	if (is.null(devId))
 		devId <- paste(floor(unclass(Sys.time())),gsub('^0.','',runif(1)),sep='')
@@ -311,7 +365,7 @@ ReportDevArea <- function(){
 	#FH <<- startTiming(POST$devid)
 	if (POST$action=='file'){
 		dev <- newDevArea(POST$devid)
-		if (POST$file %in% dir(dev$devArea)){
+		if (POST$file %in% safedir(dev$devArea, recursive = TRUE)){
 			devFile = file.path(dev$devArea,POST$file)
 			#if (length(grep('.pdf',devFile)))
 			#	setContentType('application/pdf')
