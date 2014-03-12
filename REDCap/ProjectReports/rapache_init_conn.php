@@ -1,3 +1,4 @@
+<?php
 // Copyright (c) 2013 Tennessee Initiative for Perinatal Quality Care
 // (TIPQC) All rights reserved.
 //
@@ -11,7 +12,6 @@
 // IS'' AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, WITHOUT
 // LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
-<?php
 
 /**
 * Set the variables below for securely connecting to your R-Apache server for the REDCap Data Cleaner module

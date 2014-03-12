@@ -1,3 +1,4 @@
+<?php
 // Copyright (c) 2013 Tennessee Initiative for Perinatal Quality Care
 // (TIPQC) All rights reserved.
 //
@@ -11,7 +12,6 @@
 // IS'' AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, WITHOUT
 // LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
-<?php
 
 // Individual Plots
 function rapache_field_to_csv($app_name,$form,$field,$totalrecs,$group_id="") {

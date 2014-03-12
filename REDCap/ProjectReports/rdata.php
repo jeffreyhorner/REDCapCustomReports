@@ -1,3 +1,4 @@
+<?php
 // Copyright (c) 2013 Tennessee Initiative for Perinatal Quality Care
 // (TIPQC) All rights reserved.
 //
@@ -11,9 +12,9 @@
 // IS'' AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, WITHOUT
 // LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
 // A PARTICULAR PURPOSE.
-<?php
+
 // Call the REDCap Connect file in the main "redcap" directory
-define('REDCAP_WEBROOT','/');
+//define('REDCAP_WEBROOT','/');
 require_once "../../redcap_connect.php";
 error_reporting(E_ALL);
 include 'rapache_functions.php';
