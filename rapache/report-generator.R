@@ -175,7 +175,7 @@ REDCapProjectData <- function(con,pnid){
 		}
 	}
 
-	data
+	list(data=data, metaData=mdata)
 }
 
 cleanUpDatabaseConnection = function(con){
@@ -197,9 +197,11 @@ REDCapProjectRData <- function(){
 	pid <- as.integer(POST['pid'])
 	if (length(pid) < 1 || is.na(pid)) return(OK)
 
-	data <- REDCapProjectData(con,pid)
+	result <- REDCapProjectData(con,pid)
+	data <- result$data
+	metaData <- result$metaData
 	t <- tempfile(as.character(Sys.getpid()))
-	save(data,file=t)
+	save(data,metaData,file=t)
 	sendBin(readBin(t,'raw',n=file.info(t)$size))
 	unlink(t)
 	OK
@@ -272,9 +274,10 @@ runReport <- function(dev){
 
 	rm(list=ls(envir=globalenv()),envir=globalenv())
 	#FH$log('startREDCapProjectData')
-	data <- REDCapProjectData(con,rc_id)
+	result <- REDCapProjectData(con,rc_id)
 	#FH$log('stopREDCapProjectData')
-	assign('data',data,envir=globalenv())
+	assign('data',result$data,envir=globalenv())
+	assign('metaData',result$metaData,envir=globalenv())
 	assign('USER_GROUP_ID',USER_GROUP_ID,envir=globalenv())
 	assign('USER',USER,envir=globalenv())
 	assign('SUPER_USER',SUPER_USER,envir=globalenv())
