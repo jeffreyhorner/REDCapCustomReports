@@ -9,6 +9,7 @@ Requirements
 Along with the requirements and dependencies for installing REDCap, the following must be installed on the REDCap server as well:
 
 * R - http://www.r-project.org/
+* R packages - RMySQL, XML, brew
 * rapache - http://www.rapache.net/
 
 Installation
