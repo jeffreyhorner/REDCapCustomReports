@@ -17,7 +17,7 @@ require(RMySQL,quietly=TRUE)
 library(XML)
 library(brew)
 
-DBFILE <- 'database.php'
+DBFILE <- '/var/www/redcap/database.php'
 EDOCPATH <- '/var/www/redcap/edocs'
 
 l <- readLines(DBFILE)
@@ -117,6 +117,8 @@ prepareVarDB <- function(m,d){
 				d <- as.numeric(d)
 			} 
 		}
+	} else {
+		d <- as.character(d)
 	}
 	#FH$log('stopPrepareVarDB')
 
@@ -142,7 +144,7 @@ REDCapProjectData <- function(con,pnid){
 
 	data <- data.frame(lapply(mdata[mdata$element_type!='checkbox','field_name'],
 	function(n) {
-	    prepareVarDB(as.list(mdata[mdata$field_name==n,]),retrieve_data(n))
+		prepareVarDB(as.list(mdata[mdata$field_name==n,]),retrieve_data(n))
 	}
 	), stringsAsFactors=FALSE)
 
@@ -164,9 +166,11 @@ REDCapProjectData <- function(con,pnid){
 			x <- dbGetQuery(con,paste("select value,record from redcap_data where project_id=",pnid," and field_name='",name,"' order by value",sep=''))
 				for (val in elementEnumValues(mdata[mdata$field_name==name,'element_enum'])){
 					newName <- paste(name,'___',val,sep='')
-					data[[newName]] = 0L;
-					if (length(x[x$value==val,'record']))
-						data[data$study_id %in% x[x$value==val,'record'],newName] <- 1
+					if (nrow(data) > 0) {
+						data[[newName]] = 0L;
+						if (length(x[x$value==val,'record']))
+							data[data$study_id %in% x[x$value==val,'record'],newName] <- 1
+					}
 				}
 		}
 	}
